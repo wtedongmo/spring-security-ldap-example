@@ -1,0 +1,99 @@
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content=""/>
+    <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600" rel="stylesheet"/>
+    <title>User Form</title>
+    <!--<script>-->
+    <!--$(document).ready(function () {-->
+    <!--$("#cancelButton").click(function () {-->
+    <!--$("#addUserContainer").toggle(1000);-->
+    <!--$("#showAddForm").val(false);-->
+    <!--});-->
+    <!--});-->
+    <!--</script>-->
+    <script>
+        var check = function () {
+            if (document.getElementById('password').value ==
+                document.getElementById('confirm_password').value) {
+                document.getElementById('message').style.color = 'green';
+                document.getElementById('message').innerHTML = 'matching';
+                document.getElementById('submit').disabled = false;
+            } else {
+                document.getElementById('message').style.color = 'red';
+                document.getElementById('message').innerHTML = 'not matching';
+                document.getElementById('submit').disabled = true;
+            }
+        }
+    </script>
+</head>
+<body class="body">
+<div class="container">
+    <!--<div class="panel-heading">-->
+    <!--<div th:if="${user.userId}==null" th:text="#{admin.user.new}"><i class="fa fa-users fa-fw"></i>&nbsp;New User</div>-->
+    <!--<div th:if="${user.userId}!=null" th:text="#{admin.user.edit}"><i class="fa fa-users fa-fw"></i>&nbsp;Edit User</div>-->
+    <!--</div>-->
+    <!--<div class="panel-body">-->
+
+    <div th:if="${errorMessage}" th:text="#{__${errorMessage}__}" style="color:red"/>
+    <form action="#" th:action="@{/user}" th:object="${user}"
+          th:method="post">
+        <input type="hidden" id="id" name="id" th:field="*{id}"/>
+
+        <div class="form-group required">
+            <label th:text="#{user.firstName}">First Name</label>
+            <input class="form-control" type="text"
+                   th:field="*{firstName}" th:value="${firstName}" required="true"/>
+        </div>
+
+        <div class="form-group required">
+            <label th:text="#{user.lastName}">Last Name</label>
+            <input class="form-control" type="text"
+                   th:field="*{lastName}" th:value="${lastName}" required="true"/>
+        </div>
+
+
+        <div class="form-group required">
+            <label th:text="#{user.email}">Email</label>
+            <input class="form-control" type="email"
+                   th:field="*{email}" th:value="${email}" required="true"/>
+        </div>
+
+
+        <div class="form-group required">
+            <label th:text="#{user.login}">Login</label>
+            <input class="form-control" type="text"
+                   th:field="*{login}" th:value="${login}" required="true"/>
+        </div>
+
+        <div class="form-group required" >
+            <!--th:if="${user.id}==null"-->
+            <label th:text="#{user.password}">Password</label>
+            <input class="form-control" type="password"
+                   th:field="*{password}" th:value="${password}" required="true" onkeyup='check();'/>
+        </div>
+        <div class="form-group required" >
+            <!--th:if="${user.id}==null"-->
+            <label th:text="#{user.password.confirm}">Confirm Password</label>
+            <input class="form-control" type="password" id="confirm_password" required="true" onkeyup='check();'/>
+            <span id='message'></span>
+        </div>
+
+
+        <div class="form-group">
+            <button type="submit" id="submit" value="Save" th:text="#{button.submit}">Save</button>
+            <button id="cancelButton" type="reset" value="Cancel" th:text="#{button.cancel}">Cancel
+            </button>
+        </div>
+
+    </form>
+
+</div>
+<!--</div>-->
+<footer class="footer">
+</footer>
+</body>
+</html>

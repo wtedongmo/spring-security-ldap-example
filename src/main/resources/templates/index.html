@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="description" content=""/>
+        <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600" rel="stylesheet"/>
+        <title>Home</title>
+    </head>
+    <body class="body">
+        <div class="container">
+            <h2 class="">Welcome to Home <!--<span th:text="${#authentication.getPrincipal().getUsername()}"></span>--></h2>
+            <span th:if="${success}" style="color:green">Successful Add User</span> <br/>
+            <span sec:authorize="hasAnyAuthority('ROLE_ADMIN')">Add new User: <a href="/user">here</a></span><br/>
+            <span sec:authorize="hasAnyAuthority('ROLE_USER')">Just a User </span><br/>
+            <a href="/logout">Logout</a>
+        </div>
+        <footer class="footer">
+        </footer>
+    </body> 
+</html>
